@@ -196,7 +196,7 @@ int PNG::decode(void *pUser, int iOptions)
 int PNG::decode(PNG_DRAW_CALLBACK pfnDraw, int iOptions)
 {
     // Save old draw callback in case calls are mixed
-    PNG_DRAW_CALLBACK old = _pnf.pfnDraw;
+    PNG_DRAW_CALLBACK old = _png.pfnDraw;
     _png.pfnDraw = pfnDraw;
     int ret = DecodePNG(&_png, NULL, iOptions);
     _png.pfnDraw = old;

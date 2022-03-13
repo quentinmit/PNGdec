@@ -124,11 +124,19 @@ typedef struct png_file_tag
 } PNGFILE;
 
 // Callback function prototypes
+#ifdef __cplusplus
 typedef std::function<int32_t(PNGFILE *pFile, uint8_t *pBuf, int32_t iLen)> PNG_READ_CALLBACK;
 typedef std::function<int32_t(PNGFILE *pFile, int32_t iPosition)> PNG_SEEK_CALLBACK;
 typedef std::function<void *(const char *szFilename, int32_t *pFileSize)> PNG_OPEN_CALLBACK;
 typedef std::function<void(PNGDRAW *)> PNG_DRAW_CALLBACK;
 typedef std::function<void(void *pHandle)> PNG_CLOSE_CALLBACK;
+#else
+typedef int32_t (*PNG_READ_CALLBACK)(PNGFILE *pFile, uint8_t *pBuf, int32_t iLen);
+typedef int32_t (*PNG_SEEK_CALLBACK)(PNGFILE *pFile, int32_t iPosition);
+typedef void * (*PNG_OPEN_CALLBACK)(const char *szFilename, int32_t *pFileSize);
+typedef void (*PNG_DRAW_CALLBACK)(PNGDRAW *);
+typedef void (*PNG_CLOSE_CALLBACK)(void *pHandle);
+#endif
 
 //
 // our private structure to hold a JPEG image decode state
