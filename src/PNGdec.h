@@ -31,6 +31,9 @@
 #else
 #include <Arduino.h>
 #endif
+#ifdef __cplusplus
+#include <functional>
+#endif
 #include "zutil.h"
 #include "inftrees.h"
 #include "inflate.h"
