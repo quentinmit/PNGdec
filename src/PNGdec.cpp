@@ -193,6 +193,15 @@ int PNG::decode(void *pUser, int iOptions)
 {
     return DecodePNG(&_png, pUser, iOptions);
 } /* decode() */
+int PNG::decode(PNG_DRAW_CALLBACK pfnDraw, int iOptions)
+{
+    // Save old draw callback in case calls are mixed
+    PNG_DRAW_CALLBACK old = _pnf.pfnDraw;
+    _png.pfnDraw = pfnDraw;
+    int ret = DecodePNG(&_png, NULL, iOptions);
+    _png.pfnDraw = old;
+    return ret;
+} /* decode() */
 //
 // Convert a line of native pixels (all supported formats) into RGB565
 // can optionally mix in a background color - set to -1 to disable
